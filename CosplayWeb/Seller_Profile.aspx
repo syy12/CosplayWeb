@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site1.Master" CodeBehind="Customer_Profile.aspx.cs" Inherits="CosplayWeb.Customer_Profile" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site1.Master" CodeBehind="Seller_Profile.aspx.cs" Inherits="CosplayWeb.Seller_Profile" %>
 
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" ID="Content1" runat="server">
     
@@ -7,6 +7,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
 
 
     <style>
@@ -140,11 +141,7 @@
             </tr>
 
             <tr>
-                <td onclick="changePage('myCart')" id="myCart" style="cursor:pointer;">My Cart</td>
-            </tr>
-
-            <tr>
-                <td onclick="changePage('myWishlist')" id="myWishlist" style="cursor:pointer;">My Wishlist</td>
+                <td onclick="changePage('myProd')" id="myProd" style="cursor:pointer;">My Product</td>
             </tr>
 
             <tr>
@@ -205,12 +202,12 @@
                     <asp:TextBox ID="tbx_comment" runat="server" style="width: 100%; visibility:hidden;"></asp:TextBox>
                 </div>
 
-                <div style="margin: 2%; float:left; width: 5%; min-width: 42px; text-align:center;">
+                <div style="margin: 2%; float:left; width: 5%; min-width: 42px;">
                     <i id="icon_heart" onclick="changeIcon()" class="far fa-heart" style="font-size: 30px; color: black; cursor: pointer; margin-bottom:2px; margin-top: 5px;"></i>
                     <div style="margin-bottom:20px">233</div>
                     <i id="icon_comment" onclick="addComment()" class="far fa-comment" style="font-size: 30px; color: black; cursor: pointer; margin-bottom:2px;"></i>
                     <div style="margin-bottom:20px">125</div>
-                    <i id="icon_delete" class="far fa-trash-alt" style="font-size: 30px; color: black; cursor: pointer; margin-bottom:20px;"></i>
+                    <i id="icon_delete" class="fa fa-trash-alt" style="font-size: 30px; color: black; cursor: pointer; margin-bottom:20px;"></i>
                 </div>
             </div>    
             <% } %>
@@ -219,9 +216,18 @@
         
     </div>
 
-
+        
     </div>
 
+
+    <asp:ListView ID="ListView1" runat="server"></asp:ListView>
+   
+
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT [Seller_Name], [Seller_Phone], [Seller_Email], [Seller_IC], [Seller_Rate], [Seller_Gender], [Seller_Pass] FROM [Seller] WHERE ([Seller_ID] = @Seller_ID)">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="SE1001" Name="Seller_ID" Type="String"></asp:Parameter>
+        </SelectParameters>
+    </asp:SqlDataSource>
 
 
 
@@ -302,11 +308,8 @@
     <script>
 
         function changePage(id) {
-            if (id == document.getElementById("myCart").id)
-                window.location.href = "#";
-
-            else if (id == document.getElementById("myWishList").id)
-                window.location.href = "#";
+            if (id == document.getElementById("myProd").id)
+                window.location.href = "Seller_Product.aspx";
 
             else if (id == document.getElementById("transHis").id)
                 window.location.href = "#";
@@ -315,7 +318,7 @@
         }
 
         //function openModal(id) {
-        //    //if (id == document.getElementById("editProfile").id)
+        //    if (id == document.getElementById("editProfile").id)
         //        //window.location
         //}
 
